@@ -1,0 +1,23 @@
+// 編譯套件檔案
+https://docs.nvidia.com/jetson/archives/l4t-archived/l4t-3276/index.html#page/Tegra%20Linux%20Driver%20Package%20Development%20Guide/xavier_toolchain.html#wwpID0ELHA
+https://developer.arm.com/Downloads/-/Legacy%20Linaro%20GNU%20Toolchains
+
+// 下載這一份
+gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu.tar.xz
+
+// 解壓
+tar xf gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu.tar.xz
+
+
+// 查看 usb
+sudo pacman -S usbutils
+lsusb
+
+ip link
+ip addr show <device>
+ssh nvidia@192.168.55.1
+
+scp -r <path> nvidia@192.168.55.1:<path>
+
+// 寫入 ssh ，下次不需再次輸入密碼
+ssh-copy-id nvidia@192.168.55.1

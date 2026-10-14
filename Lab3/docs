@@ -1,0 +1,5 @@
+sudo pacman -S cmake ninja gdb base-devel
+sudo pacman -S qtcreator
+
+// ssh 圖形界面
+sudo pacman -S xwayland-satellite
