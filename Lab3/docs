@@ -1,5 +1,9 @@
 sudo pacman -S cmake ninja gdb base-devel
 sudo pacman -S qtcreator
 
-// ssh 圖形界面
+// ssh 圖形界面，安裝在本機
 sudo pacman -S xwayland-satellite
+
+// ssh 圖形界面執行方式
+ssh -vY nvidia@192.168.55.1
+sudo -E ./LightControl
