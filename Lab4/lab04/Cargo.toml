@@ -1,0 +1,6 @@
+[workspace]
+resolver = "3"
+members = ["server", "led-panel", "thread-pool"]
+
+[workspace.dependencies]
+trpl = "0.3"

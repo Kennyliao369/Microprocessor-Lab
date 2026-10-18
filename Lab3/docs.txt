@@ -1,6 +1,11 @@
 sudo pacman -S cmake ninja gdb base-devel
 sudo pacman -S qtcreator
 
+# 使用方式
+scp 到 Jetson Tx2
+qmake 生成 Makefile
+make 完成建制
+
 // ssh 圖形界面，安裝在本機
 sudo pacman -S xwayland-satellite
 

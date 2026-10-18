@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>LED Control</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <h2> LED Control Panel </h2>
+
+  <label> <input type="checkbox" name="led" value="0"> LED0 </label>
+  <label> <input type="checkbox" name="led" value="1"> LED1 </label>
+  <label> <input type="checkbox" name="led" value="2"> LED2 </label>
+  <label> <input type="checkbox" name="led" value="3"> LED3 </label>
+  <br>
+  <label> <input type="radio" name="power" value="ON" checked> ON </label>
+  <label> <input type="radio" name="power" value="OFF"> OFF </label>
+  <br>
+  <button id="submit"> Submit </button>
+  <br>
+  <br>
+
+  <input id="times" type="number" min="1" value="5">
+  <br>
+  <button id="switch"> Switch </button>
+  <button id="running"> Running </button>
+  <button id="stop"> Stop </button>
+  <br>
+  <br>
+
+  <textarea id=result rows="10" cols="50" readonly></textarea>
+  <br>
+  <button id="clear"> Clear </button>
+
+
+  <script>
+    const result = document.getElementById("result");
+    function addLog(text) {
+      result.value += text + "\n";
+      result.scrollTop = result.scrollHeight;
+    }
+
+    document.getElementById("submit").onclick = async () => {
+      const leds = [...document.querySelectorAll('input[name="led"]:checked')].map(e => e.value);
+      const power = document.querySelector('input[name="power"]:checked').value;
+
+      for (const led of leds) {
+        const response = await fetch(`/shine?LED=${led}&POWER=${power}`);
+        const text = await response.text();
+        addLog(text);
+      }
+    };
+
+    document.getElementById("switch").onclick = async () => {
+      const times = document.getElementById("times").value;
+      const response = await fetch(`/switch?times=${times}`);
+      const text = await response.text();
+      addLog(text);
+    }
+
+    document.getElementById("running").onclick = async () => {
+      const response = await fetch(`/running`);
+      const text = await response.text();
+      addLog(text);
+    }
+
+    document.getElementById("stop").onclick = async () => {
+      const response = await fetch(`/stop`);
+      const text = await response.text();
+      addLog(text);
+    }
+
+    document.getElementById("clear").onclick = () => {
+      result.value = "";
+    }
+  </script>
+</body>
+
+</html>

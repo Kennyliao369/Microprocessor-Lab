@@ -1,11 +1,13 @@
-**/Finish
-**/Example
-**/Target
-**/Pictures
-**/PPT
-**/Report
+**/Finish/
+**/Example/
+**/Pictures/
+**/Report/
 
-**.o
-**.pdf
+/PPT/
+/Setup/
 
-/Setup
+**/target
+
+*.o
+*.pdf
+
