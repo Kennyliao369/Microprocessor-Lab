@@ -1,4 +1,4 @@
-## Microprocesser System Lab
+# Microprocesser System Lab
 
 NTUT 2026 Y3S1 Microprocessor System Lab Class Project
 
@@ -6,7 +6,7 @@ Cross compilation from x86-archlinux to Jetson-TX2
 
 > Not include class PDF and Report
 
-### Environment
+## Environment
 
 - Host: x86-archlinux
 - Target: Jetson-TX2
@@ -14,7 +14,7 @@ Cross compilation from x86-archlinux to Jetson-TX2
 - Qt: qtcreator
 - Rust target: aarch64-unknown-linux-gnu
 
-### 目錄結構
+## 目錄結構
 
 ```
 .
@@ -38,7 +38,7 @@ Cross compilation from x86-archlinux to Jetson-TX2
 >
 > `docs.txt` 為專案筆記
 
-### Lab1: 嵌入式系統編譯
+## Lab1: 嵌入式系統編譯
 
 **目標**
 
@@ -53,7 +53,7 @@ Cross compilation from x86-archlinux to Jetson-TX2
 
 todo!()
 
-### Lab2: 基礎 GPIO 控制
+## Lab2: 基礎 GPIO 控制
 
 **目標**
 
@@ -81,7 +81,7 @@ lib.rs 做 gpio 底層控制。main.rs 做參數解析、流程控制
 
 todo!()
 
-### Lab3: 嵌入式 QT 視窗程式開發
+## Lab3: 嵌入式 QT 視窗程式開發
 
 **目標**
 
@@ -109,7 +109,7 @@ Gpio 檔案操作的部分是 Claude 生成的，因為寫太多次，要吐了
 
 todo!()
 
-### Lab4: 構建 web sever
+## Lab4: 構建 web sever
 
 **目標**
 
