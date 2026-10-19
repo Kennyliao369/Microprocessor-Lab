@@ -135,6 +135,7 @@ todo!()
 - 原子引用計數，共享信道到多個線程
 - 信道收發，線程中共享信道
 - 使用簡易併發，async 、await，防止 switch 、running 阻塞線程
+- 使用 `Arc<AtomicBool>` ，原子引用 + 原子布林，在線程中共享可變數值
 - 寫 html 。當按下按鈕，主動向服務器發起請求。接受結果，送回界面上
 
 運作原理：
@@ -145,7 +146,8 @@ todo!()
 4. handle_leds 線程收到 shine ，開始執行任務，並回覆結果
 5. handle_leds 線程收到 switch 或是 running 會異步執行，這時還是可以繼續接受其他訊息，並返回 gpio 忙碌中
 6. handle_leds 線程如果收到 stop 會主動打斷目前執行的 switch 或是 running ，並等待下次請求
-7. handle_connection 收到 Leds 線程回信後，整理並向客戶返回訊息
+7. handle_leds 線程如果收到 reverse ，會將 `Arc<AtomicBool>` 反向，而 running 會讀取 AtomicBool 及時判斷方向
+8. handle_connection 收到 Leds 線程回信後，整理並向客戶返回訊息
 
 行為模式：
 
