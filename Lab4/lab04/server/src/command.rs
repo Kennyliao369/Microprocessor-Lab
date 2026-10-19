@@ -3,6 +3,7 @@ pub enum LedMode {
     Shine { index: u32, power: bool },
     Switch { times: u32 },
     Running,
+    Reverse,
     Stop,
 }
 
@@ -41,6 +42,7 @@ impl LedMode {
                 Ok(LedMode::Switch { times })
             }
             "/running" => Ok(LedMode::Running),
+            "/reverse" => Ok(LedMode::Reverse),
             "/stop" => Ok(LedMode::Stop),
             _ => Err("Unknown path")?,
         }

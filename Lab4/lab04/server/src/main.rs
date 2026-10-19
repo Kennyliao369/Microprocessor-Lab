@@ -4,6 +4,7 @@ use std::{
     net::{TcpListener, TcpStream},
     sync::{
         Arc,
+        atomic::{AtomicBool, Ordering},
         mpsc::{self, Sender},
     },
     thread,
@@ -94,6 +95,7 @@ async fn handle_leds(
     mut led_panel_rx: trpl::Receiver<(LedMode, Sender<Result<String, String>>)>,
 ) {
     let mut handle: trpl::JoinHandle<()> = trpl::spawn_task(async {});
+    let reverse: Arc<AtomicBool> = Arc::new(AtomicBool::new(false));
 
     while let Some((led_mode, reply_tx)) = led_panel_rx.recv().await {
         match led_mode {
@@ -129,13 +131,29 @@ async fn handle_leds(
                     continue;
                 }
                 let leds2 = Arc::clone(&leds);
-                handle = trpl::spawn_task(async move { leds2.running().await });
+                let reverse = Arc::clone(&reverse);
+                handle = trpl::spawn_task(async move { leds2.running(&reverse).await });
                 let _ = reply_tx.send(Ok(String::from("LED start running")));
             }
+            LedMode::Reverse => {
+                let now = !reverse.fetch_not(Ordering::Relaxed);
+                let dir = if now { "reverse" } else { "forward" };
+                let _ = reply_tx.send(Ok(format!("LED direction: {dir}")));
+            }
             LedMode::Stop => {
-                handle.abort();
+                let is_running = !handle.is_finished();
+                if is_running {
+                    handle.abort();
+                    let _ = (&mut handle).await;
+                }
                 let _ = leds.all_off();
-                let _ = reply_tx.send(Ok(String::from("LED stopped")));
+
+                let msg = if is_running {
+                    "LED stopped"
+                } else {
+                    "All LED off"
+                };
+                let _ = reply_tx.send(Ok(String::from(msg)));
             }
         }
     }

@@ -1,4 +1,8 @@
-use std::{error::Error, time::Duration};
+use std::{
+    error::Error,
+    sync::atomic::{AtomicBool, Ordering},
+    time::Duration,
+};
 
 use crate::Gpio;
 
@@ -57,12 +61,16 @@ impl Leds {
         let _ = self.all_off();
     }
 
-    pub async fn running(&self) {
-        let mut index = 0;
+    pub async fn running(&self, reverse: &AtomicBool) {
         let length = self.0.len();
+        let mut index = 0;
         loop {
             let _ = self.0[index].set_value(0);
-            index = (index + 1) % length;
+            index = if reverse.load(Ordering::Relaxed) {
+                (index + length - 1) % length
+            } else {
+                (index + 1) % length
+            };
             let _ = self.0[index].set_value(1);
             trpl::sleep(Duration::from_millis(500)).await;
         }
