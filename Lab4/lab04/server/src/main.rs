@@ -23,7 +23,7 @@ fn main() {
 
     let (led_panel_tx, led_panel_rx) = trpl::channel::<(LedMode, Sender<Result<String, String>>)>();
 
-    // pin: 7 13 29 33
+    // pin: 7 15 29 33
     let leds = Arc::new(Leds::new(&[396, 255, 398, 389]));
     if let Err(e) = leds.exports() {
         eprintln!("Problem with export gpios: {e}");

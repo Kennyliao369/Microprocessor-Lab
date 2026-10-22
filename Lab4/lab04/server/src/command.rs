@@ -12,7 +12,7 @@ impl LedMode {
         let (path, query) = uri.split_once('?').unwrap_or((uri, ""));
 
         match path {
-            // /index?LED=1&POWER=on
+            // /shine?LED=1&POWER=on
             "/shine" => {
                 let mut index = None;
                 let mut power = None;
