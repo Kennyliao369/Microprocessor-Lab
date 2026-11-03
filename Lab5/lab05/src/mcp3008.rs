@@ -12,7 +12,7 @@ impl MCP3008 {
         let mut spidev = Spidev::open(path)?;
 
         let options = SpidevOptions::new()
-            .max_speed_hz(1_000_000)
+            .max_speed_hz(500_000)
             .mode(SpiModeFlags::SPI_MODE_0)
             .build();
         spidev.configure(&options)?;

@@ -1,0 +1,35 @@
+# 備份開機設定
+cp /boot/extlinux/extlinux.conf /boot/extlinux/extlinux.conf.bak
+
+# 啟用 spi4
+/opt/nvidia/jetson-io/config-by-function.py -o dtb spi4
+
+# 重新啟動
+reboot
+
+
+# 查看節點
+ls /dev/spidev*
+
+# 代碼裡指定的路徑
+/dev/spidev3.0
+
+# TX2 to MCP3008 線路
+19 -> DIN
+21 -> DOUT
+23 -> CLK
+24 -> CS
+
+
+# 執行相機串流
+gst-launch-1.0 nvarguscamerasrc ! nvvidconv ! xvimagesink
+
+
+# 執行相機拍攝腳本時需要加上 -s
+# 讓其不使用 .local cv2 函式庫 （pip 裝的，沒有啟用 GStreamer）
+# 而是使用內建的 JetPack cv2 函式庫 （專為TX2 編的）
+python3 -s lab05_alarm.py
+
+
+# 清除 ssh-key （當連接其他設備無法登入時）
+ssh-keygen –R 192.168.55.1

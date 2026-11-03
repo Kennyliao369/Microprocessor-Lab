@@ -11,6 +11,7 @@ use gpio::Direction::Output;
 use gpio::Gpio;
 
 fn main() {
+    // pin: 7 15
     let gpio1 = Gpio::new(396, Output).unwrap();
     let gpio2 = Gpio::new(255, Output).unwrap();
 

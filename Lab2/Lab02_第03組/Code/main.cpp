@@ -6,7 +6,7 @@
 
 #include "gpio.hpp"
 
-// pin: 7 13 29 33
+// pin: 7 15 29 33
 const int LED_COUNT = 4;
 const int LEDS[LED_COUNT] = {396, 255, 398, 389};
 
